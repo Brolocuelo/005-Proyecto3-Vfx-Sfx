@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    public float jumpForce = 10f;
+    public float jumpForce = 15f;
     private bool isOnTheGround = true;
     public bool gameOver;
 
     private Animator _animator;
-    public float gravityModifier = 1.5f;
-    private float randomVal;
+    public float gravityMultiplier = 1.5f;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-        Physics.gravity *= gravityModifier;
+        Physics.gravity *= gravityMultiplier;
     }
 
     private void Update()
@@ -33,11 +33,9 @@ public class PlayerController : MonoBehaviour
     private void GameOver()
     {
         gameOver = true;
-        if (gameOver = true)
-        {
-            _animator.SetBool("DeathType_b", true);
-        }
-        _animator.SetInteger("DeathType_int",1);
+        _animator.SetBool("Death_b", true);
+        _animator.SetInteger("DeathType_int", Random.Range(1,3));
+        
     }
     private void OnCollisionEnter(Collision otherCollider)
     {
